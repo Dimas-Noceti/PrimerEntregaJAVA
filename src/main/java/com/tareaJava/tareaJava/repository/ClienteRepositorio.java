@@ -11,5 +11,5 @@ import com.tareaJava.tareaJava.model.Domicilio;
 public interface ClienteRepositorio extends JpaRepository<Cliente, Integer> {
 
 
-    
+    Cliente findByDni(long dni);
 }

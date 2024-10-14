@@ -1,6 +1,8 @@
 package com.tareaJava.tareaJava.services;
 
 import java.util.List;
+
+import org.hibernate.boot.model.naming.IllegalIdentifierException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +14,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class ClienteServicio { 
+public class ClienteService { 
 
     @Autowired
     private ClienteRepositorio clienteRepositorio;
@@ -23,8 +25,12 @@ public class ClienteServicio {
 
 
 
-    public void creandoCliente(Cliente c) {
-        this.clienteRepositorio.save(c);
+    public void creandoCliente(Cliente cliente) {
+        Cliente c = this.clienteRepositorio.findByDni(cliente.getDni());
+        if(c != null) {
+            throw new IllegalIdentifierException("El cliente ya existe");
+        }
+        this.clienteRepositorio.save(cliente);
     }
 
 

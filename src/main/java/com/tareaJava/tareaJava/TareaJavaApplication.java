@@ -7,13 +7,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.tareaJava.tareaJava.model.Cliente;
 import com.tareaJava.tareaJava.model.Domicilio;
-import com.tareaJava.tareaJava.services.ClienteServicio;
+import com.tareaJava.tareaJava.services.ClienteService;
 
 @SpringBootApplication
 public class TareaJavaApplication implements CommandLineRunner{
 
 	@Autowired
-	private ClienteServicio clienteServicio;
+	private ClienteService clienteServicio;
 
 	public static void main(String[] args) {
 		SpringApplication.run(TareaJavaApplication.class, args);

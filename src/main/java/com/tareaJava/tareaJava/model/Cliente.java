@@ -16,10 +16,13 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 
 
 @Entity
+@Data
+@NoArgsConstructor
 @Table(name = "CLIENTE")
 public class Cliente {
 
