@@ -6,6 +6,7 @@ import org.hibernate.boot.model.naming.IllegalIdentifierException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.tareaJava.tareaJava.dto.ClienteDTO;
 import com.tareaJava.tareaJava.model.Cliente;
 import com.tareaJava.tareaJava.model.Domicilio;
 import com.tareaJava.tareaJava.repository.ClienteRepositorio;
@@ -19,7 +20,8 @@ public class ClienteService {
     @Autowired
     private ClienteRepositorio clienteRepositorio;
 
-    public List<Cliente> getAllClientes() {
+    public List<Cliente > getAllClientes() {
+        
         return clienteRepositorio.findAll();
     }
 
@@ -33,5 +35,9 @@ public class ClienteService {
         this.clienteRepositorio.save(cliente);
     }
 
+
+    public List<Cliente> buscarPorNombre(String nombre) {
+        return this.clienteRepositorio.findByNombre(nombre);
+    }
 
 }
