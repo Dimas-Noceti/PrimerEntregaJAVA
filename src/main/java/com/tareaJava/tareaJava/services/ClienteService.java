@@ -2,42 +2,18 @@ package com.tareaJava.tareaJava.services;
 
 import java.util.List;
 
-import org.hibernate.boot.model.naming.IllegalIdentifierException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.tareaJava.tareaJava.dto.ClienteDTO;
-import com.tareaJava.tareaJava.model.Cliente;
-import com.tareaJava.tareaJava.model.Domicilio;
-import com.tareaJava.tareaJava.repository.ClienteRepositorio;
 
-import lombok.RequiredArgsConstructor;
+public interface ClienteService {
 
-@Service
-@RequiredArgsConstructor
-public class ClienteService { 
+    ClienteDTO getUserById (Long id);
 
-    @Autowired
-    private ClienteRepositorio clienteRepositorio;
+    ClienteDTO createClient (ClienteDTO clienteDTO);
 
-    public List<Cliente > getAllClientes() {
-        
-        return clienteRepositorio.findAll();
-    }
+    List <ClienteDTO> getAllClients();
 
+    void updateUser(Long id, ClienteDTO clienteDTO);
 
-
-    public void creandoCliente(Cliente cliente) {
-        Cliente c = this.clienteRepositorio.findByDni(cliente.getDni());
-        if(c != null) {
-            throw new IllegalIdentifierException("El cliente ya existe");
-        }
-        this.clienteRepositorio.save(cliente);
-    }
-
-
-    public List<Cliente> buscarPorNombre(String nombre) {
-        return this.clienteRepositorio.findByNombre(nombre);
-    }
+    void deleteUser(Long id);
 
 }

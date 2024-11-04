@@ -9,23 +9,30 @@ import com.tareaJava.tareaJava.model.Cliente;
 @Component
 public class ClientMapper {
 
-
-    public ClienteDTO toDTO(Cliente cliente) {
-        if (cliente == null) {
-            throw new IllegalArgumentException("El usuario es obligatorio");
+    public ClienteDTO toDTO (Cliente cliente){
+        if(cliente == null) {
+            throw new IllegalArgumentException("El usuario no puede ser nulo");
         }
-
-        ClienteDTO clienteDTO = new ClienteDTO(null, null, 0);
+        ClienteDTO clienteDTO = new ClienteDTO();
+        clienteDTO.setId(cliente.getId());
+        clienteDTO.setName(cliente.getName());
+        clienteDTO.setEmail(cliente.getEmail());
+        clienteDTO.setPhone(cliente.getPhone());
+        clienteDTO.setWebsite(cliente.getWebsite());
         return clienteDTO;
     }
 
     public Cliente toEntity(ClienteDTO clienteDTO) {
         if (clienteDTO == null) {
-            throw new IllegalArgumentException("El usuario es obligatorio");
+            throw new IllegalArgumentException("El usuario no puede ser nulo");
         }
 
         Cliente cliente = new Cliente();
+        cliente.setId(clienteDTO.getId());
+        cliente.setName(clienteDTO.getName());
+        cliente.setEmail(clienteDTO.getEmail());
+        cliente.setPhone(clienteDTO.getPhone());
+        cliente.setWebsite(clienteDTO.getWebsite());
         return cliente;
     }
-    
 } 
