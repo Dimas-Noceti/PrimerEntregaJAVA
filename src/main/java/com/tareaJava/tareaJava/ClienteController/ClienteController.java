@@ -13,11 +13,17 @@ import com.tareaJava.tareaJava.dto.ClienteDTO;
 import com.tareaJava.tareaJava.services.ClienteServiceImpl;
 import com.tareaJava.tareaJava.utils.ApiResponseMsg;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/clientes")
 public class ClienteController {
 
     @Autowired
@@ -26,6 +32,16 @@ public class ClienteController {
 
 
     @GetMapping("/all")
+    @Operation(summary = "Obtener todos los clientes", description = "Obtener todos los clientes")
+    @ApiResponses(value = { 
+        @ApiResponse (responseCode = "200", description = "Operacion existosa", content = @Content(schema = @Schema(implementation = ClienteDTO.class))),
+        @ApiResponse (responseCode = "404", description = "Clientes no encontrados", content = @Content(schema = @Schema(implementation = ApiResponseMsg.class), examples = {
+            @ExampleObject(name = "ClienteNoEncontradoEjemplo", value = "{\"message\": \"Cliente no encontrado\"}", description = "Clientes no encontrados")
+        })),
+
+    })
+    
+
     public ResponseEntity<?> getAllClients() {
         try {
             ClienteDTO[] clientes = clienteService.findAll();
@@ -51,8 +67,12 @@ public class ClienteController {
         return ResponseEntity.noContent().build();
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteUser(@PathVariable Long id) {
+    @DeleteMapping("/delete/{id}")
+    @Operation(summary = "Borrar a un cliente de la API", description = "Borra un usuario por su id")
+    @ApiResponse(responseCode = "204", description = "Cliente borrado")
+    @ApiResponse(responseCode = "404", description = "Cliente no encontrado")
+    public ResponseEntity<?> deleteUser( 
+        @Parameter(description = "ID del cliente que quiera borrar de la API") @PathVariable Long id){
     try {
         clienteService.deleteUser(id);
         return ResponseEntity.noContent().build();

@@ -54,7 +54,7 @@ public class ClienteServiceImpl implements ClienteService{
 
     @Override
     public void deleteUser(Long id) {
-        
+        restTemplate.delete(API_URL + "/{id}", id);
     }
 
     @Override
